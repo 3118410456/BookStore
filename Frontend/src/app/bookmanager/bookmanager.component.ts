@@ -46,6 +46,7 @@ export class BookmanagerComponent implements OnInit {
   select: any;
   review: any;
   searchText: any;
+  submitted:any = false;
 
   constructor(
     private http: HttpClient,
@@ -122,22 +123,25 @@ export class BookmanagerComponent implements OnInit {
   }
 
   addBook() {
+    this.submitted = true;
     console.log(this.Book.image);
     console.log('New Product:', this.Book);
 
-    this.bookService.addNewBook(this.Book).subscribe(
-      (res) => {
-        console.log(res);
-        Swal.fire('Thêm sách thành công', '', 'success')
-          .then(() => {
-            this.closePopupAddBook();
-            window.location.reload();
-          });
-      },
-      (error) => {
-        console.error(error);
-      }
-    );
+    if(this.isFormValid()) {
+      this.bookService.addNewBook(this.Book).subscribe(
+        (res) => {
+          console.log(res);
+          Swal.fire('Thêm sách thành công', '', 'success')
+            .then(() => {
+              this.closePopupAddBook();
+              window.location.reload();
+            });
+        },
+        (error) => {
+          console.error(error);
+        }
+      );
+    }
 
 
 
@@ -145,24 +149,27 @@ export class BookmanagerComponent implements OnInit {
 
 
   async updateBook() {
+    this.submitted = true;
     // console.log(this.Book.image);
-    const result = await Swal.fire({
-      title: 'Xác nhận SỬA thông tin sách',
-      // text: 'Bạn sẽ không thể hoàn tác lại sau khi xóa!',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Có!',
-      cancelButtonText: 'Không',
-    });
-
-    if (result.isConfirmed) {
-      this.bookService.updateBook(this.Book).subscribe(res => console.log(res));
-
-      Swal.fire('SỬA thành công', '', 'success').then(() => {
-        this.closePopupAddBook()
-        window.location.reload();
-      })
-
+    if(this.isFormValid()) {
+      const result = await Swal.fire({
+        title: 'Xác nhận SỬA thông tin sách',
+        // text: 'Bạn sẽ không thể hoàn tác lại sau khi xóa!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Có!',
+        cancelButtonText: 'Không',
+      });
+  
+      if (result.isConfirmed) {
+        this.bookService.updateBook(this.Book).subscribe(res => console.log(res));
+  
+        Swal.fire('SỬA thành công', '', 'success').then(() => {
+          this.closePopupAddBook()
+          window.location.reload();
+        })
+  
+      }
     }
   }
 
@@ -191,6 +198,20 @@ export class BookmanagerComponent implements OnInit {
       })
 
     }
+  }
+
+  isFormValid() {
+    // Kiểm tra tính hợp lệ của biểu mẫu
+    return (
+      this.Book &&
+      this.Book.title !== '' &&
+      this.Book.image !== '' &&
+      this.Book.categoryID !== 0 &&
+      this.Book.author !== '' &&
+      this.Book.description !== '' &&
+      this.Book.price !== 0 &&
+      this.Book.quantity !== 0 
+    );
   }
 
 

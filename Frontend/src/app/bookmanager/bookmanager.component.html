@@ -69,39 +69,59 @@
                     <div class="container mt-9">
                         <form>
                             <div class="mb-9">
-                                <label for="title" class="form-label">Tên sách</label>
+                                <div class="messageError">
+                                    <label for="title" class="form-label">Tên sách</label>
+                                    <div class="text-danger" *ngIf="submitted && Book.title === ''">&nbsp;&nbsp;(Tên sách không được trống)</div>
+                                </div>
                                 <input type="text" class="form-control" id="title" name="title" [(ngModel)]="Book.title" required>
                             </div>
                             <div class="mb-9">
-                                <label for="category" class="form-label">Loại sách</label>
+                                <div class="messageError">
+                                    <label for="category" class="form-label">Loại sách</label>
+                                    <div class="text-danger" *ngIf="submitted && Book.categoryID === 0">&nbsp;&nbsp;(Loại sách không được trống)</div>
+                                </div>
                                 <select class="form-control" id="category" name="category" [(ngModel)]="Book.categoryID" required>
                                 <option selected disabled>-----Chọn loại sách-----</option>
                                 <ng-container *ngFor="let category of categories">
                                     <option *ngIf="category.status===1" value="{{category.categoryID}}">
-                                        {{category.name}} :
-                                        {{category.status}}</option>
+                                        {{category.name}}</option>
                                     <!-- Add more categories as needed -->
                                 </ng-container>
                             </select>
                             </div>
                             <div class="mb-9">
-                                <label for="author" class="form-label">Tác giả</label>
+                                <div class="messageError">
+                                    <label for="author" class="form-label">Tác giả</label>
+                                    <div class="text-danger" *ngIf="submitted && Book.author === ''">&nbsp;&nbsp;(Tác giả không được trống)</div>
+                                </div>
                                 <input type="text" class="form-control" id="author" name="author" [(ngModel)]="Book.author" required>
                             </div>
                             <div class="mb-9">
-                                <label for="description" class="form-label">Mô tả</label>
+                                <div class="messageError">
+                                    <label for="description" class="form-label">Mô tả</label>
+                                    <div class="text-danger" *ngIf="submitted && Book.description === ''">&nbsp;&nbsp;(Mô tả không được trống)</div>
+                                </div>
                                 <textarea type="text" class="form-control" id="description" name="description" [(ngModel)]="Book.description" required></textarea>
                             </div>
                             <div class="mb-9">
-                                <label for="price" class="form-label">Đơn giá</label>
+                                <div class="messageError">
+                                    <label for="price" class="form-label">Đơn giá</label>
+                                    <div class="text-danger" *ngIf="submitted && Book.price === 0">&nbsp;&nbsp;(Đơn giá không được bằng 0)</div>
+                                </div>
                                 <input type="number" class="form-control" id="price" name="price" [(ngModel)]="Book.price" [value]="Book.price" required>
                             </div>
                             <div class="mb-9">
-                                <label for="quantity" class="form-label">Số lượng</label>
+                                <div class="messageError">
+                                    <label for="quantity" class="form-label">Số lượng</label>
+                                    <div class="text-danger" *ngIf="submitted && Book.quantity === 0">&nbsp;&nbsp;(Số lượng không được bằng 0)</div>
+                                </div>
                                 <input type="number" class="form-control" id="quantity" name="quantity" [(ngModel)]="Book.quantity" required>
                             </div>
                             <div>
-                                <label for="image" class="form-label">Hình ảnh</label>
+                                <div class="messageError">
+                                    <label for="image" class="form-label">Hình ảnh</label>
+                                    <div class="text-danger" *ngIf="submitted && Book.image === ''">&nbsp;&nbsp;(Hình ảnh không được trống)</div>
+                                </div>
                                 <input type="file" class="form-control" (change)="selectImage($event)" name="image" enctype="multipart/form-data">
                                 <img [src]="review" class="w-50">
                             </div>

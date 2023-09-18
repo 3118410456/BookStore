@@ -52,7 +52,10 @@
                 <div class="container mt-9">
                     <form>
                         <div class="mb-9">
-                            <label for="title" class="form-label">Tên loại sách</label>
+                            <div class="messageError">
+                                <label for="title" class="form-label">Tên loại sách</label>
+                                <div class="text-danger" *ngIf="submitted && Category.name === ''">&nbsp;&nbsp;(Không được bỏ bắt buộc)</div>
+                            </div>
                             <input type="text " class="form-control" name=" " [(ngModel)]="Category.name">
                         </div>
                     </form>

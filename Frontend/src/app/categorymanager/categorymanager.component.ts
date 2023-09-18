@@ -27,6 +27,7 @@ export class CategorymanagerComponent implements OnInit {
   }
   mode: any;
   searchText: any;
+  submitted:any = false;
 
   // test :any = this.getQuantityCategory(1)
 
@@ -89,40 +90,46 @@ export class CategorymanagerComponent implements OnInit {
   }
 
   addCategory() {
+    this.submitted = true;
     // console.log(this.Category);
-    this.categoryService.addCategory(this.Category).subscribe(
-      (res) => {
-        console.log(res);
-        Swal.fire('Thêm thành công', '', 'success')
-          .then(() => {
-            this.closePopupAddCategory();
-            window.location.reload();
-          });
-      },
-      (error) => {
-        console.error(error);
-      })
+    if(this.isFormValid()) {
+      this.categoryService.addCategory(this.Category).subscribe(
+        (res) => {
+          console.log(res);
+          Swal.fire('Thêm thành công', '', 'success')
+            .then(() => {
+              this.closePopupAddCategory();
+              window.location.reload();
+            });
+        },
+        (error) => {
+          console.error(error);
+        })
+    }
   }
 
   async updateCategory() {
+    this.submitted = true;
     // console.log(this.Category);
-    const result = await Swal.fire({
-      title: 'Xác nhận SỬA tên loại sách',
-      // text: 'Bạn sẽ không thể hoàn tác lại sau khi xóa!',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Có',
-      cancelButtonText: 'Không',
-    });
-
-    if (result.isConfirmed) {
-      this.categoryService.updateCategory(this.Category).subscribe(res => console.log(res));
-
-      Swal.fire('SỬA thành công', '', 'success').then(() => {
-        this.closePopupAddCategory()
-        window.location.reload();
-      })
-
+    if(this.isFormValid()) {
+      const result = await Swal.fire({
+        title: 'Xác nhận SỬA tên loại sách',
+        // text: 'Bạn sẽ không thể hoàn tác lại sau khi xóa!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Có',
+        cancelButtonText: 'Không',
+      });
+  
+      if (result.isConfirmed) {
+        this.categoryService.updateCategory(this.Category).subscribe(res => console.log(res));
+  
+        Swal.fire('SỬA thành công', '', 'success').then(() => {
+          this.closePopupAddCategory()
+          window.location.reload();
+        })
+  
+      }
     }
   }
 
@@ -148,5 +155,13 @@ export class CategorymanagerComponent implements OnInit {
       })
 
     }
+  }
+
+  isFormValid() {
+    // Kiểm tra tính hợp lệ của biểu mẫu
+    return (
+      this.Category &&
+      this.Category.name !== '' 
+    );
   }
 }
