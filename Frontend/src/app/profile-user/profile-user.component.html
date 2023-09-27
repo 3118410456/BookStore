@@ -1,0 +1,92 @@
+<div class="container col-5 form">
+    <h1>PROFILE</h1>
+    <form (ngSubmit)="onSubmit()">
+
+        <div class="mb-3">
+            <div class="messageError">
+                <label for="username" class="form-label">Tên tài khoản</label>
+            </div>
+            <input type="text" class="form-control" id="username" name="username" [(ngModel)]="profileForm.username" readonly required>
+        </div>
+
+        <div class="mb-3">
+            <div class="messageError">
+                <label for="fullName" class="form-label">Họ và tên</label>
+                <div class="text-danger" *ngIf="submitted && profileForm.fullname === '' ">&nbsp;&nbsp;(Họ và tên là bắt buộc)</div>
+            </div>
+            <input type="text" class="form-control" id="fullname" name="fullname" [(ngModel)]="profileForm.fullname" required>
+        </div>        
+
+        <div class="mb-3">
+            <div class="messageError">
+                <label for="birthDate" class="form-label">Ngày sinh</label>
+                <div class="text-danger" *ngIf="submitted && profileForm.birthDate === ''">&nbsp;&nbsp;(Ngày sinh là bắt buộc)</div>
+            </div>
+            <input type="date" class="form-control" id="birthday" name="birthday" [(ngModel)]="profileForm.birthday" required>
+        </div>
+
+        <div class="mb-3">
+            <div class="messageError">
+                <label for="email" class="form-label">Email</label>
+                <div class="text-danger" *ngIf="submitted && (profileForm.email === '' || !isValidEmail(profileForm.email))">&nbsp;&nbsp;(Email không hợp lệ)</div>
+            </div>
+            <input type="email" class="form-control" id="email" name="email" [(ngModel)]="profileForm.email" required>
+        </div>
+        <div>
+            <button type="submit" class="btn btn-primary">Cập nhật</button>
+        <button type="button" class="btn btn-primary" (click)="openPopupChangePassword()">Đổi mật khẩu</button>
+        </div>
+
+    </form>
+</div>
+
+<!-- Modal -->
+<div class="modal fade custom-modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Thêm loại sách</h5>
+                <button (click)="closePopupChangePassword()" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                    </button>
+            </div>
+            <div class="modal-body">
+                <div class="container mt-9">
+                    <form>
+                        <div class="mb-9">
+                            <div class="mb-3">
+                                <div class="messageError">
+                                    <label for="password" class="form-label">Mật khẩu mới</label>
+                                    <div class="text-danger" *ngIf="submitPass && !pass">&nbsp;&nbsp;(Mật khẩu không chính xác)</div>
+                                    <!-- <div class="text-danger" *ngIf="submitPass && changePassword.oldPassword === ''">&nbsp;&nbsp;(Mật khẩu cũ không được trống)</div> -->
+                                </div>
+                                <input type="password" class="form-control" id="oldPassword" name="oldPassword" [(ngModel)]="changePassword.oldPassword" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <div class="messageError">
+                                    <label for="password" class="form-label">Mật khẩu mới</label>
+                                    <div class="text-danger" *ngIf="submitPass && changePassword.newPassword === '' ||submitPass &&  changePassword.newPassword.length < 6">&nbsp;&nbsp;(Mật khẩu ít nhất 6 ký tự)</div>
+                                </div>
+                                <input type="password" class="form-control" id="newPassword" name="newPassword" [(ngModel)]="changePassword.newPassword" required>
+                            </div>
+                    
+                            <div class="mb-3">
+                                <div class="messageError">
+                                    <label for="confirmPassword" class="form-label">Xác nhận mật khẩu</label>
+                                    <div class="text-danger" *ngIf="submitPass && changePassword.confirmPassword !== changePassword.newPassword">&nbsp;&nbsp;(Mật khẩu xác nhận không khớp)</div>
+                                </div>
+                                <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" [(ngModel)]="changePassword.confirmPassword" required>
+                    
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="closePopupChangePassword()" data-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-primary" (click)="onChangePassword()">Đổi mật khẩu</button>
+            </div>
+        </div>
+    </div>
+</div>

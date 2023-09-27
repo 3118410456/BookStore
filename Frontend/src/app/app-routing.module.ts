@@ -13,6 +13,8 @@ import { PaymentComponent } from './payment/payment.component';
 import { BillmanagerComponent } from './billmanager/billmanager.component';
 import { SearchComponent } from './search/search.component';
 import { RegisterComponent } from './register/register.component';
+import { ProfileUserComponent } from './profile-user/profile-user.component';
+
 
 const routes: Routes = [
   { path: 'home', component: ContentComponent },
@@ -28,6 +30,8 @@ const routes: Routes = [
   { path: 'billManager', component: BillmanagerComponent },
   { path: 'payment', component: PaymentComponent },
   { path: 'search/:name', component: SearchComponent },
+  { path: 'profile', component:  ProfileUserComponent},
+
 
 
   // Define more routes here

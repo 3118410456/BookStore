@@ -32,11 +32,11 @@ export class PaymentComponent implements OnInit {
 
   getPayment() {
     const account: any = this.getSessionAccount();
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-      })
-    };
+    // const httpOptions = {
+    //   headers: new HttpHeaders({
+    //     'Content-Type': 'application/json',
+    //   })
+    // };
     if (account) {
       this.bill.date = this.getDate();
       this.bill.userID = account.userID;

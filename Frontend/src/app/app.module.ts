@@ -23,6 +23,7 @@ import { DatePipe } from '@angular/common';
 import { SearchComponent } from './search/search.component';
 import { FilterPipe } from './filter.pipe';
 import { RegisterComponent } from './register/register.component';
+import { ProfileUserComponent } from './profile-user/profile-user.component';
 
 
 @NgModule({
@@ -44,6 +45,7 @@ import { RegisterComponent } from './register/register.component';
     SearchComponent,
     FilterPipe,
     RegisterComponent,
+    ProfileUserComponent,
     
 
   ],

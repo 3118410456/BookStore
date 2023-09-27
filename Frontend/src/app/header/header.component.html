@@ -51,7 +51,7 @@
                     <a class="nav-link" *ngIf="!account" routerLink="/register">Đăng kí</a>
                 </li>
                 <li class="nav-item" *ngIf="account">
-                    <a class="nav-link">Xin chào : <strong>{{account}}</strong></a>
+                    <a class="nav-link" routerLink="/profile">Xin chào : <strong>{{account}}</strong></a>
                 </li>
                 <li class="nav-item" style="cursor: pointer;" *ngIf="account">
                     <a class="nav-link" (click)="onLogout()">Đăng xuất</a>

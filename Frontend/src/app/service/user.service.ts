@@ -17,7 +17,11 @@ export class UserService {
     return this.http.get<any[]>('https://localhost:44316/api/Users')
   }
 
-  updateBook(data:any): Observable<any> {
-    return this.http.put<any[]>(`https://localhost:44316/api/Books/${data.userID}` , data)
+  getUserByID(id :any): Observable<any> {
+    return this.http.get<any[]>(`https://localhost:44316/api/Users/${id}`)
+  }
+
+  updateUser(data:any): Observable<any> {
+    return this.http.put<any[]>(`https://localhost:44316/api/Users/${data.userID}` , data)
   }
 }
